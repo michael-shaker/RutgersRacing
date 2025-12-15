@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-// Removed Scanner and InputMismatchException imports
 import java.util.List;
 
 /**
@@ -99,9 +98,11 @@ import java.util.List;
  * complexity affects
  * real-world performance!
  * 
+ * v1 - implements applyStarbucksTruckAction only
+ * 
  * @author elianddb
  */
-public class RURacing {
+public class RURacingv1 {
     private List<Racer> racers;
     private Track track;
 
@@ -123,12 +124,10 @@ public class RURacing {
      * @param track The track on which the race will be simulated
      * @throws IllegalArgumentException if the track is null
      */
-    public RURacing(Track track) {
+    public RURacingv1(Track track) {
         if (track == null) {
             throw new IllegalArgumentException("Track cannot be null.");
         }
-
-        // Initialize each racer with the given track
         this.track = track;
         this.racers = List.of(
                 new Racer("ScarletKnight", "⚔", track, 0),
@@ -137,14 +136,8 @@ public class RURacing {
                 new Racer("NLogNExpress", "🚌", track, track.getLength()));
     }
 
-    // -----------------------------------------------------
-    // STUDENT METHODS - IMPLEMENT THESE METHODS
-    // -----------------------------------------------------
-
     /**
      * O(N²) Strategy - Quadratic time complexity implementation.
-     * 
-     * TODO: STUDENT - Implement this method
      * 
      * This strategy requires the racer to charge its battery for N actions between
      * each teleportation.
@@ -163,13 +156,20 @@ public class RURacing {
      * @param racer The racer to which this strategy is applied
      */
     public static void applyStarbucksTruckAction(Racer racer) {
-        //WRITE YOUR CODE HERE
+        if (racer == null) throw new IllegalArgumentException("Racer cannot be null");
+        if (racer.getBattery() >= racer.getChargeTime()) {
+            // battery full -> teleport 1
+            racer.useScarletTeleporterTM(1);
+        } else {
+            // otherwise charge one unit
+            racer.chargeBattery();
+        }
     }
+
+    // Remaining student methods are intentionally unimplemented in v1
 
     /**
      * O(N log N) Strategy - N * logarithmic time complexity implementation.
-     * 
-     * TODO: STUDENT - Implement this method
      * 
      * This strategy should combine charging time with exponentially increasing
      * teleport distances:
@@ -188,13 +188,11 @@ public class RURacing {
      * @param racer The racer to which this strategy is applied
      */
     public static void applyNLogNExpressAction(Racer racer) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
     /**
      * O(N) Strategy - Linear time complexity implementation.
-     * 
-     * TODO: STUDENT - Implement this method
      * 
      * This strategy should make the racer take exactly N teleportation actions to
      * complete the track,
@@ -208,13 +206,11 @@ public class RURacing {
      * @param racer The racer to which this strategy is applied
      */
     public static void applyScarletKnightAction(Racer racer) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
     /**
      * O(log N) Strategy - Logarithmic time complexity implementation.
-     * 
-     * TODO: STUDENT - Implement this method
      * 
      * This strategy should use exponentially increasing teleport distances to
      * complete the track,
@@ -232,7 +228,7 @@ public class RURacing {
      * @param racer The racer to which this strategy is applied
      */
     public static void applyLogNExpressAction(Racer racer) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
     /**
@@ -243,12 +239,10 @@ public class RURacing {
      * teleport.
      * This method selects and applies the correct strategy based on the racer type.
      * 
-     * TODO: STUDENT - Implement this method
-     * 
      * @param racer the racer to apply the action strategy to
      */
     public void applyActionStrategy(Racer racer) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
     /**
@@ -256,13 +250,11 @@ public class RURacing {
      * Racers are ranked first by who has traveled the FARTHEST distance,
      * and if there's a tie, then by who has used the FEWEST actions.
      * 
-     * TODO: STUDENT - Implement this method
-     * 
      * @param racers List of racers to rank
      * @return Ranked list of racers (highest distance first, then lowest action count)
      */
     public static List<Racer> rankRacers(List<Racer> racers) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
     /**
@@ -271,18 +263,14 @@ public class RURacing {
      * (either charging or teleporting). The simulation stops when all racers finish or
      * the cutoff number of steps is reached.
      * 
-     * TODO: STUDENT - Implement this method
-     * 
      * @param cutoff   Maximum number of simulation steps before ending the simulation
      * @return Ranked list of racers at the end of the simulation
      */
     public List<Racer> simulateRace(long cutoff) {
-                //WRITE YOUR CODE HERE
+        throw new UnsupportedOperationException("Not implemented in RURacingv1");
     }
 
-    // -----------------------------------------------------
-    // PRE-WRITTEN METHODS - DO NOT MODIFY
-    // -----------------------------------------------------
+    // Pre-written helpers (unchanged)
 
     /**
      * Ranks racers based on performance (fewest actions, then distance).
@@ -309,18 +297,14 @@ public class RURacing {
      * 
      * @return An unmodifiable list of all racers in the simulation
      */
-    public List<Racer> getRacers() {
-        return racers;
-    }
+    public List<Racer> getRacers() { return racers; }
 
     /**
      * Retrieves the track being used for this race simulation.
      * 
      * @return The track object on which the race is taking place
      */
-    public Track getTrack() {
-        return track;
-    }
+    public Track getTrack() { return track; }
 
     /**
      * Retrieves the complete history of each racer's progress throughout the race.
@@ -338,9 +322,7 @@ public class RURacing {
      */
     public List<RacerHistory> getRacersHistories() {
         List<RacerHistory> histories = new ArrayList<>();
-        for (Racer racer : racers) {
-            histories.add(racer.getHistory());
-        }
+        for (Racer racer : racers) histories.add(racer.getHistory());
         return histories;
     }
 }
